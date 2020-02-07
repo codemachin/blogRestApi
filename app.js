@@ -32,12 +32,12 @@ app.use(function(req,res,next){
 var dbPath = 'mongodb://localhost/myblogapp';
 
 // command to connect with database
-db = mongoose.connect(dbPath);
+db = mongoose.connect(dbPath, {useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
 
-mongoose.connection.once('open',function(){
-
+mongoose.connection.on('error', console.error.bind(console, 'connection error:'));
+// connect to database and execute the function
+mongoose.connection.once('open', function() {
 	console.log("database connection open success");
-
 });
 
 // include the model file
